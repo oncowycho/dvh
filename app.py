@@ -3,6 +3,20 @@ import pydicom
 import numpy as np
 import plotly.graph_objs as go
 
+st.markdown("""
+    <style>
+    .reportview-container {
+        margin-top: -2em;
+    }
+    #MainMenu {visibility: hidden;}
+    .stDeployButton {display:none;}
+    footer {visibility: hidden;}
+    #stDecoration {display:none;}
+    </style>
+""", unsafe_allow_html=True)
+
+st.session_state.theme = "light"
+
 # Streamlit UI
 st.title("Dose Volume Histogram (DVH)")
 
