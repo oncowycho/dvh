@@ -4,7 +4,7 @@ import numpy as np
 import plotly.graph_objs as go
 
 # Streamlit UI
-st.title("Dose Volume Histogram (DVH) Viewer")
+st.title("Dose Volume Histogram (DVH)")
 
 # File upload widgets
 rtstruct_file = st.file_uploader("Upload RT Structure File (.dcm)", type=["dcm"])
