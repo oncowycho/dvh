@@ -25,10 +25,10 @@ rtstruct_file = st.file_uploader("Upload RT Structure File (.dcm)", type=["dcm"]
 rtdose_file = st.file_uploader("Upload RT Dose File (.dcm)", type=["dcm"])
 
 # Use default files if no input is given
-# if rtstruct_file is None:
-#     rtstruct_file = 'rts.dcm'
-# if rtdose_file is None:
-#     rtdose_file = 'dose.dcm'
+if rtstruct_file is None:
+    rtstruct_file = 'rts.dcm'
+if rtdose_file is None:
+    rtdose_file = 'dose.dcm'
 
 if rtstruct_file and rtdose_file:
     # Load DICOM files
