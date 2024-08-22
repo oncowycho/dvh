@@ -25,10 +25,8 @@ rtstruct_file = st.file_uploader("Upload RT Structure File (.dcm)", type=["dcm"]
 rtdose_file = st.file_uploader("Upload RT Dose File (.dcm)", type=["dcm"])
 
 # Use default files if no input is given
-if rtstruct_file is None:
-    rtstruct_file = 'rts.dcm'
-if rtdose_file is None:
-    rtdose_file = 'dose.dcm'
+if rtstruct_file is None: rtstruct_file = 'rts.dcm'
+if rtdose_file is None: rtdose_file = 'dose.dcm'
 
 if rtstruct_file and rtdose_file:
     # Load DICOM files
@@ -37,14 +35,21 @@ if rtstruct_file and rtdose_file:
     
     # Extract structure names
     structures = {roi.ROIName: roi.ROINumber for roi in rtstruct.StructureSetROISequence}
-    
-    # Add multiselect to choose which structures to display
+
+    all_options = ["All"] + list(structures.keys())
+
     selected_structures = st.multiselect(
         "Select Structures to Display",
-        list(structures.keys()),
-        default=None
+        all_options,
+        key='option'
     )
-    
+
+    if 'All' in selected_structures:
+        if selected_structures == ['All']:
+            selected_structures = list(structures.keys())
+        else:
+            selected_structures.remove('All')
+        
     # Dose grid information
     dose_grid = rtdose.pixel_array
     dose_grid = dose_grid * rtdose.DoseGridScaling  # Apply scaling factor
@@ -85,13 +90,18 @@ if rtstruct_file and rtdose_file:
 
             # Create DVH
             if doses:
-                hist, bin_edges = np.histogram(doses, bins=100)
+                if max(doses) == 0: continue
+                hist, bin_edges = np.histogram(doses, bins=100, range=(min(doses), max(doses)))
                 cumulative_volume = np.cumsum(hist[::-1])[::-1]
                 
+                # Normalize cumulative volume to get the ratio of the total structure volume
+                total_volume = np.sum(hist)
+                cumulative_volume_ratio = (cumulative_volume / total_volume)*100
+
                 # Add DVH trace for this structure
                 fig.add_trace(go.Scatter(
                     x=bin_edges[:-1], 
-                    y=cumulative_volume, 
+                    y=cumulative_volume_ratio, 
                     mode='lines',
                     name=f"DVH for {structure_name}"
                 ))
@@ -100,7 +110,7 @@ if rtstruct_file and rtdose_file:
     fig.update_layout(
         title="Dose Volume Histograms (DVH) for Selected Structures",
         xaxis_title="Dose (Gy)",
-        yaxis_title="Volume (cc)",
+        yaxis_title="Volume Ratio",
         xaxis=dict(showgrid=True),
         yaxis=dict(showgrid=True),
         template="plotly_white",
@@ -108,3 +118,4 @@ if rtstruct_file and rtdose_file:
     )
 
     st.plotly_chart(fig)
+
