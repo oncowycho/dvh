@@ -58,7 +58,8 @@ if rtstruct_file and rtdose_file:
     pixel_spacing = rtdose.PixelSpacing  # [x_spacing, y_spacing]
     slice_thickness = rtdose.GridFrameOffsetVector[1] - rtdose.GridFrameOffsetVector[0]  # z_spacing
     
-    fig = go.Figure()
+    fig1 = go.Figure()
+    fig2 = go.Figure()
     
     for structure_name, roi_number in structures.items():
         if structure_name not in selected_structures:
@@ -99,15 +100,23 @@ if rtstruct_file and rtdose_file:
                 cumulative_volume_ratio = (cumulative_volume / total_volume)*100
 
                 # Add DVH trace for this structure
-                fig.add_trace(go.Scatter(
+                fig1.add_trace(go.Scatter(
                     x=bin_edges[:-1], 
                     y=cumulative_volume_ratio, 
                     mode='lines',
                     name=f"DVH for {structure_name}"
                 ))
+
+                 # Add DVH trace for this structure
+                fig2.add_trace(go.Scatter(
+                    x=bin_edges[:-1], 
+                    y=cumulative_volume, 
+                    mode='lines',
+                    name=f"DVH for {structure_name}"
+                ))
                 
     # Customize and show the plot
-    fig.update_layout(
+    fig1.update_layout(
         title="Dose Volume Histograms (DVH) for Selected Structures",
         xaxis_title="Dose (Gy)",
         yaxis_title="Volume Ratio (%)",
@@ -117,5 +126,17 @@ if rtstruct_file and rtdose_file:
         legend_title="Structures"
     )
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig1)
+    
+    # Customize and show the plot
+    fig2.update_layout(
+        title="Dose Volume Histograms (DVH) for Selected Structures",
+        xaxis_title="Dose (Gy)",
+        yaxis_title="Volume (cc)",
+        xaxis=dict(showgrid=True),
+        yaxis=dict(showgrid=True),
+        template="plotly_white",
+        legend_title="Structures"
+    )
 
+    st.plotly_chart(fig2)
