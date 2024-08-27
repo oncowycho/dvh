@@ -119,7 +119,7 @@ if rtstruct_file and rtdose_file:
     fig1.update_layout(
         title="Dose Volume Histograms (DVH) for Selected Structures",
         xaxis_title="Dose (Gy)",
-        yaxis_title="Volume Ratio (%)",
+        yaxis_title="Ratio of Total Structure Volume (%)",
         xaxis=dict(showgrid=True),
         yaxis=dict(showgrid=True),
         template="plotly_white",
@@ -132,7 +132,7 @@ if rtstruct_file and rtdose_file:
     fig2.update_layout(
         title="Dose Volume Histograms (DVH) for Selected Structures",
         xaxis_title="Dose (Gy)",
-        yaxis_title="Volume (cc)",
+        yaxis_title="Structure Volume (cc)",
         xaxis=dict(showgrid=True),
         yaxis=dict(showgrid=True),
         template="plotly_white",
