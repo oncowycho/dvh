@@ -156,7 +156,7 @@ def main():
             fig.update_layout(
                 title="Dose Volume Histogram (DVH)",
                 xaxis_title="Dose (Gy)",
-                yaxis_title="Ration of Total Structure Volume (%)",
+                yaxis_title="Ratio of Total Structure Volume (%)",
                 xaxis = dict(
                     tickmode = 'linear',
                     tick0 = 0,
