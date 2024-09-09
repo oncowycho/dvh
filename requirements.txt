@@ -1,3 +1,4 @@
 dicompyler-core
 plotly
 numpy
+pydicom
