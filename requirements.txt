@@ -1,4 +1,4 @@
-dicompyler-core
+dicompyler-core==0.5.6
 pydicom==2.3.0
 plotly
 numpy
