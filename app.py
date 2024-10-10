@@ -5,6 +5,7 @@ import matplotlib.path
 import pydicom
 import plotly.graph_objects as go
 from six import iteritems
+from pydicom.uid import ImplicitVRLittleEndian
 
 
 st.set_page_config(layout="wide")
@@ -121,6 +122,8 @@ def main():
         # Read the DICOM files using pydicom
         rtss_file = pydicom.dcmread(rtss_file, force=True)
         rtdose_file = pydicom.dcmread(rtdose_file, force=True)
+        if not hasattr(rtdose_file.file_meta, 'TransferSyntaxUID'):
+            rtdose_file.file_meta.TransferSyntaxUID = ImplicitVRLittleEndian
 
         rtss_parser = dicomparser.DicomParser(rtss_file)
        
