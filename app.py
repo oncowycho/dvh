@@ -17,7 +17,7 @@ def get_dvh(structure, dose, roi, limit=None, callback=None):
 
     s = structures[roi]
     s['planes'] = rtss.GetStructureCoordinates(roi)
-    print(rtss.GetStructureCoordinates(roi))
+    
     s['thickness'] = rtss.CalculatePlaneThickness(s['planes'])
     hist = calculate_dvh(s, rtdose, limit, callback)
     return dvh.DVH(counts=hist,
