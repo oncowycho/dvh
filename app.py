@@ -119,8 +119,8 @@ def main():
     
     if rtss_file is not None and rtdose_file is not None:
         # Read the DICOM files using pydicom
-        # rtss = pydicom.dcmread(rtss_file)
-        # rtdose = pydicom.dcmread(rtdose_file)
+        rtss_file = pydicom.dcmread(rtss_file)
+        rtdose_file = pydicom.dcmread(rtdose_file)
 
         rtss_parser = dicomparser.DicomParser(rtss_file)
        
