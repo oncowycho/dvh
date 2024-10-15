@@ -166,7 +166,8 @@ def main():
                     tickmode = 'linear',
                     tick0 = 0,
                     dtick = 2,
-                    showgrid=True
+                    showgrid=True,
+                    side='right'
                     ),
                 font=dict(size=18, color="black"),
                 height=600
