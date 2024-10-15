@@ -162,12 +162,20 @@ def main():
                 title="Dose Volume Histogram (DVH)",
                 xaxis_title="Dose (Gy)",
                 yaxis_title="Ratio of Total Structure Volume (%)",
+                yaxis=dict(
+                    title="DVH",
+                    side="left"
+                ),
+                yaxis2=dict(
+                    title="Histogram Counts",
+                    overlaying='y',
+                    side="right"
+                ),
                 xaxis = dict(
                     tickmode = 'linear',
                     tick0 = 0,
                     dtick = 2,
-                    showgrid=True,
-                    side='right'
+                    showgrid=True
                     ),
                 font=dict(size=18, color="black"),
                 height=600
