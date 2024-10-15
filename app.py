@@ -164,12 +164,12 @@ def main():
                 yaxis_title="Ratio of Total Structure Volume (%)",
                 yaxis=dict(
                     title="DVH",
-                    side="left"
+                    side="right"
                 ),
                 yaxis2=dict(
                     title="Histogram Counts",
                     overlaying='y',
-                    side="right"
+                    side="left"
                 ),
                 xaxis = dict(
                     tickmode = 'linear',
